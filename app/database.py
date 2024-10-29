@@ -1,9 +1,14 @@
 import pyodbc
 from dotenv import load_dotenv
 import os
-
+import sys
 # Load environment variables from .env
 load_dotenv()
+
+# Add the root directory to sys.path to make sure 'app' is found
+current_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))  # Adjust as per your folder structure
+sys.path.append(root_dir)
 
 def get_db_connection():
     # Fetching the connection details from environment variables
