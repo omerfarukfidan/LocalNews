@@ -1,11 +1,13 @@
-from fastapi import FastAPI
-from app.routes import router
+import sys
+import os
 
-app = FastAPI()
+# Add the root project directory to sys.path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.abspath(os.path.join(current_dir, '..'))
+sys.path.append(root_dir)
 
-# Include routes from the routes.py file
-app.include_router(router)
+from app import create_app
 
-@app.get("/")
-def read_root():
-    return {"message": "Local News API is running"}
+app = create_app()
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
