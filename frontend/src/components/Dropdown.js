@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchDistinctCities } from '../services/api';
 
-function Dropdown({ options, onSelect }) {
+function Dropdown({ onSelect }) {
+  const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
+
+  useEffect(() => {
+    const getCities = async () => {
+      const cities = await fetchDistinctCities();
+      setOptions(cities);
+    };
+    getCities();
+  }, []);
 
   const handleChange = (e) => {
     setSelectedOption(e.target.value);
