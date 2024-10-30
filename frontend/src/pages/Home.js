@@ -16,7 +16,7 @@ function Home() {
     <div className="home-container">
       <Header />
       <div className="content">
-        <h2>Find Local News for Your City</h2>
+        <h2 className="home-title">Find Local News for Your City</h2>
         <Dropdown onSelect={handleSelect} />
       </div>
       <Footer />
