@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchDistinctCities } from '../services/api';
+import '../styles/Dropdown.css';
 
 function Dropdown({ onSelect }) {
   const [options, setOptions] = useState([]);

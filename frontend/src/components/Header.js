@@ -1,9 +1,10 @@
 import React from 'react';
+import '../styles/Header.css';
 
 function Header() {
   return (
-    <header>
-      <h1>Local News Project</h1>
+    <header className="header">
+      <h1 className="header-title">Local News</h1>
     </header>
   );
 }

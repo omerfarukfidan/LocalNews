@@ -3,3 +3,5 @@ uvicorn
 pyodbc
 pandas
 python-dotenv
+flask
+flask-cors
