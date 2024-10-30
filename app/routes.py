@@ -1,7 +1,10 @@
 from flask import Blueprint, jsonify, request
 from app.database import get_db_connection
 
+from flask_cors import CORS
+
 main_routes = Blueprint('main_routes', __name__)
+CORS(main_routes)
 
 # Root route
 @main_routes.route('/', methods=['GET'])
@@ -35,30 +38,33 @@ def get_cities():
 
     return jsonify(cities)
 
-# Route to fetch a single city by name
-@main_routes.route('/cities/<city_name>', methods=['GET'])
-def get_city(city_name):
-    print(f"Fetching city: {city_name}")
-    
+# Route to fetch news by city name
+@main_routes.route('/news/<city_name>', methods=['GET'])
+def get_news_by_city(city_name):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM Cities WHERE city = ?", city_name)
-    row = cursor.fetchone()
+    query = '''
+    SELECT N.id AS NewsID, C.city, N.title, N.content 
+    FROM [News] AS N
+    JOIN [CityNews] AS CN ON CN.news_id = N.id
+    JOIN [City] AS C ON C.id = CN.city_id
+    WHERE C.city = ?
+    '''
 
-    if row:
-        city = {
-            'city': row[0],
-            'city_ascii': row[1],
-            'state_id': row[2],
-            'state_name': row[3],
-            'lat': row[4],
-            'lng': row[5],
-            'population': row[6],
-            'zips': row[7]
+    cursor.execute(query, (city_name,))
+    rows = cursor.fetchall()
+
+    news_list = []
+    for row in rows:
+        news_item = {
+            'NewsID': row[0],
+            'city': row[1],
+            'title': row[2],
+            'content': row[3]
         }
-        conn.close()
-        return jsonify(city)
-    else:
-        conn.close()
-        return jsonify({"error": "City not found"}), 404
+        news_list.append(news_item)
+
+    conn.close()
+
+    return jsonify(news_list)
