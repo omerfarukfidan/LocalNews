@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { fetchNewsUrl } from '../services/api';
 import '../styles/NewsCard.css';
+import { fetchNewsUrl } from '../services/api';
 
 function NewsCard({ title, content, NewsID }) {
   const [provider, setProvider] = useState('Unknown Provider');
@@ -36,11 +36,16 @@ function NewsCard({ title, content, NewsID }) {
     }
   };
 
+  const providerStyle = {
+    backgroundColor: provider === 'CNN News' ? '#CC0000' : provider === 'USA Today News' ? '#009BFF' : '#ffcc00',
+    color: '#ffffff',
+  };
+
   return (
     <div className="news-card">
       <h2>{title}</h2>
       <p>{content.substring(0, 150)}...</p>
-      <span className="news-provider">{provider}</span>
+      <span className="news-provider" style={providerStyle}>{provider}</span>
       <button onClick={handleReadMore} className="read-more-button">Read More</button>
     </div>
   );
