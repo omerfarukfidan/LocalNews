@@ -3,7 +3,7 @@ import '../styles/Footer.css';
 function Footer() {
   return (
     <footer className="footer">
-      <p>Local News Project &copy; 2024. All Rights Reserved.</p>
+       <p>Local News &copy; 2024. All Rights Reserved.</p>
     </footer>
   );
 }
