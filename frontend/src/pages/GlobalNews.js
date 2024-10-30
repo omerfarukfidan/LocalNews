@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NewsList from '../components/NewsList';
 import { fetchNews } from '../services/api';
+import '../styles/GlobalNews.css';
 
 function GlobalNews() {
   const [news, setNews] = useState([]);
@@ -14,7 +15,7 @@ function GlobalNews() {
   }, []);
 
   return (
-    <div>
+    <div className="global-news-container">
       <h2>Global News</h2>
       <NewsList news={news} />
     </div>

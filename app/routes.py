@@ -90,3 +90,29 @@ def get_distinct_cities():
     conn.close()
 
     return jsonify(distinct_cities)
+
+# Route to fetch news URL by news ID
+@main_routes.route('/news-url/<int:news_id>', methods=['GET'])
+def get_news_url(news_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    query = '''
+    SELECT N.url 
+    FROM [News] AS N
+    JOIN [CityNews] AS CN ON CN.news_id = N.id
+    JOIN [City] AS C ON C.id = CN.city_id
+    WHERE CN.news_id = ?
+    '''
+
+    cursor.execute(query, (news_id,))
+    row = cursor.fetchone()
+
+    if row:
+        news_url = {'url': row[0]}
+    else:
+        news_url = {'error': 'News not found'}
+
+    conn.close()
+
+    return jsonify(news_url)

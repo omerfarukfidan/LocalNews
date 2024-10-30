@@ -36,3 +36,16 @@ export const fetchDistinctCities = async () => {
     return [];
   }
 };
+
+export const fetchNewsUrl = async (newsId) => {
+  try {
+    const response = await fetch(`http://127.0.0.1:5000/news-url/${newsId}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  } catch (error) {
+    console.error(`Failed to fetch news URL for news ID ${newsId}:`, error);
+    return { error: 'Failed to fetch news URL' };
+  }
+};

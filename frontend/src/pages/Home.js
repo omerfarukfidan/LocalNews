@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Dropdown from '../components/Dropdown';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Home.css';
 
 function Home() {
   const navigate = useNavigate();
@@ -13,14 +14,12 @@ function Home() {
     }
   };
 
-  const cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix']; // Dummy data for cities
-
   return (
     <div className="home-container">
       <Header />
       <div className="content">
         <h2>Find Local News for Your City</h2>
-        <Dropdown options={cities} onSelect={handleSelect} />
+        <Dropdown onSelect={handleSelect} />
       </div>
       <Footer />
     </div>

@@ -1,9 +1,9 @@
 import React from 'react';
-
+import '../styles/Footer.css';
 function Footer() {
   return (
-    <footer>
-      <p>Local News Project &copy; 2024</p>
+    <footer className="footer">
+      <p>Local News Project &copy; 2024. All Rights Reserved.</p>
     </footer>
   );
 }

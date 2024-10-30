@@ -1,5 +1,6 @@
 import React from 'react';
 import NewsCard from './NewsCard';
+import '../styles/NewsList.css';
 
 function NewsList({ news }) {
   return (
