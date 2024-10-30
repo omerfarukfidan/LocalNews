@@ -39,6 +39,11 @@ function NewsCard({ title, content, NewsID }) {
   const providerStyle = {
     backgroundColor: provider === 'CNN News' ? '#CC0000' : provider === 'USA Today News' ? '#009BFF' : '#ffcc00',
     color: '#ffffff',
+    fontWeight: 'bold',
+    fontSize: '1rem',
+    padding: '5px 10px',
+    borderRadius: '5px',
+    marginRight: '10px',
   };
 
   return (
