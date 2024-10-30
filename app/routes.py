@@ -68,3 +68,25 @@ def get_news_by_city(city_name):
     conn.close()
 
     return jsonify(news_list)
+
+# Route to fetch distinct cities for dropdown
+@main_routes.route('/distinct-cities', methods=['GET'])
+def get_distinct_cities():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    query = '''
+    SELECT DISTINCT C.city 
+    FROM [News] AS N
+    JOIN [CityNews] AS CN ON CN.news_id = N.id
+    JOIN [City] AS C ON C.id = CN.city_id
+    '''
+
+    cursor.execute(query)
+    rows = cursor.fetchall()
+
+    distinct_cities = [row[0] for row in rows]
+
+    conn.close()
+
+    return jsonify(distinct_cities)
