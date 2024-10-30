@@ -46,6 +46,6 @@ export const fetchNewsUrl = async (newsId) => {
     return response.json();
   } catch (error) {
     console.error(`Failed to fetch news URL for news ID ${newsId}:`, error);
-    return { error: 'Failed to fetch news URL' };
+    return { url: '' };
   }
 };

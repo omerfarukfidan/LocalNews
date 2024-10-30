@@ -2,15 +2,13 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Dropdown from '../components/Dropdown';
-import { useNavigate } from 'react-router-dom';
+import SlidingMenu from '../components/SlidingMenu';
 import '../styles/Home.css';
 
 function Home() {
-  const navigate = useNavigate();
-
   const handleSelect = (city) => {
     if (city) {
-      navigate(`/city/${city}`);
+      window.location.href = `/city/${city}`;
     }
   };
 
@@ -22,6 +20,7 @@ function Home() {
         <Dropdown onSelect={handleSelect} />
       </div>
       <Footer />
+      <SlidingMenu />
     </div>
   );
 }
