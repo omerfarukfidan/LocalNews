@@ -90,10 +90,15 @@ The project uses MS SQL Server as the database. Make sure you have MS SQL Server
 #### Example .env:
 
 ```bash
-DB_SERVER=localhost
-DB_DATABASE=local_news_db
-DB_USER=your_username
-DB_PASSWORD=your_password
+{
+    "DB_SERVER": "your-aws-rds-endpoint",
+    "DB_PORT": "5432",
+    "DB_NAME": "local_news_db",
+    "DB_USER": "your_username",
+    "DB_PASSWORD": "your_password",
+    "DB_SSL_MODE": "require"
+}
+
 ```
 
 ### 7. Load the Data
