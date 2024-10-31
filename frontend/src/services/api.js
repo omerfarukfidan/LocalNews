@@ -1,6 +1,6 @@
 export const fetchNews = async () => {
   try {
-    const response = await fetch('http://127.0.0.1:5000/news');
+    const response = await fetch('http://news_backend:5000/news');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -13,7 +13,7 @@ export const fetchNews = async () => {
 
 export const fetchCityNews = async (city) => {
   try {
-    const response = await fetch(`http://127.0.0.1:5000/news/${city}`);
+    const response = await fetch(`http://news_backend:5000/news/${city}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -26,7 +26,7 @@ export const fetchCityNews = async (city) => {
 
 export const fetchDistinctCities = async () => {
   try {
-    const response = await fetch('http://127.0.0.1:5000/distinct-cities');
+    const response = await fetch('http://news_backend:5000/distinct-cities');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -39,7 +39,7 @@ export const fetchDistinctCities = async () => {
 
 export const fetchNewsUrl = async (newsId) => {
   try {
-    const response = await fetch(`http://127.0.0.1:5000/news-url/${newsId}`);
+    const response = await fetch(`http://news_backend:5000/news-url/${newsId}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
