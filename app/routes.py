@@ -1,42 +1,9 @@
 from flask import Blueprint, jsonify, request
 from app.database import get_db_connection
-
 from flask_cors import CORS
 
 main_routes = Blueprint('main_routes', __name__)
 CORS(main_routes)
-
-# Root route
-@main_routes.route('/', methods=['GET'])
-def home():
-    return jsonify({"message": "Welcome to the Local News API!"})
-
-# Route to fetch all cities
-@main_routes.route('/cities', methods=['GET'])
-def get_cities():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    
-    cursor.execute("SELECT * FROM Cities")
-    rows = cursor.fetchall()
-
-    cities = []
-    for row in rows:
-        city = {
-            'city': row[0],
-            'city_ascii': row[1],
-            'state_id': row[2],
-            'state_name': row[3],
-            'lat': row[4],
-            'lng': row[5],
-            'population': row[6],
-            'zips': row[7]
-        }
-        cities.append(city)
-
-    conn.close()
-
-    return jsonify(cities)
 
 # Route to fetch news by city name
 @main_routes.route('/news/<city_name>', methods=['GET'])
@@ -44,12 +11,11 @@ def get_news_by_city(city_name):
     conn = get_db_connection()
     cursor = conn.cursor()
 
+    # Use the view to fetch news by city name
     query = '''
-    SELECT N.id AS NewsID, C.city, N.title, N.content 
-    FROM [News] AS N
-    JOIN [CityNews] AS CN ON CN.news_id = N.id
-    JOIN [City] AS C ON C.id = CN.city_id
-    WHERE C.city = ?
+    SELECT * 
+    FROM news_by_city_view
+    WHERE city = %s
     '''
 
     cursor.execute(query, (city_name,))
@@ -74,15 +40,9 @@ def get_news_by_city(city_name):
 def get_distinct_cities():
     conn = get_db_connection()
     cursor = conn.cursor()
-    
-    query = '''
-    SELECT DISTINCT C.city 
-    FROM [News] AS N
-    JOIN [CityNews] AS CN ON CN.news_id = N.id
-    JOIN [City] AS C ON C.id = CN.city_id
-    '''
 
-    cursor.execute(query)
+    # Use the view to fetch distinct cities
+    cursor.execute("SELECT * FROM distinct_cities_view")
     rows = cursor.fetchall()
 
     distinct_cities = [row[0] for row in rows]
@@ -96,13 +56,12 @@ def get_distinct_cities():
 def get_news_url(news_id):
     conn = get_db_connection()
     cursor = conn.cursor()
-    
+
+    # Use the view to fetch news URL by news ID
     query = '''
-    SELECT N.url 
-    FROM [News] AS N
-    JOIN [CityNews] AS CN ON CN.news_id = N.id
-    JOIN [City] AS C ON C.id = CN.city_id
-    WHERE CN.news_id = ?
+    SELECT url 
+    FROM news_url_by_id_view
+    WHERE id = %s
     '''
 
     cursor.execute(query, (news_id,))
