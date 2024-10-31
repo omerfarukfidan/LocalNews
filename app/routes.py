@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from app.database import get_db_connection
-
 from flask_cors import CORS
 
 main_routes = Blueprint('main_routes', __name__)
@@ -16,7 +15,7 @@ def home():
 def get_cities():
     conn = get_db_connection()
     cursor = conn.cursor()
-    
+
     cursor.execute("SELECT * FROM Cities")
     rows = cursor.fetchall()
 
@@ -46,10 +45,10 @@ def get_news_by_city(city_name):
 
     query = '''
     SELECT N.id AS NewsID, C.city, N.title, N.content 
-    FROM [News] AS N
-    JOIN [CityNews] AS CN ON CN.news_id = N.id
-    JOIN [City] AS C ON C.id = CN.city_id
-    WHERE C.city = ?
+    FROM News AS N
+    JOIN CityNews AS CN ON CN.news_id = N.id
+    JOIN City AS C ON C.id = CN.city_id
+    WHERE C.city = %s
     '''
 
     cursor.execute(query, (city_name,))
@@ -74,12 +73,12 @@ def get_news_by_city(city_name):
 def get_distinct_cities():
     conn = get_db_connection()
     cursor = conn.cursor()
-    
+
     query = '''
     SELECT DISTINCT C.city 
-    FROM [News] AS N
-    JOIN [CityNews] AS CN ON CN.news_id = N.id
-    JOIN [City] AS C ON C.id = CN.city_id
+    FROM News AS N
+    JOIN CityNews AS CN ON CN.news_id = N.id
+    JOIN City AS C ON C.id = CN.city_id
     '''
 
     cursor.execute(query)
@@ -96,13 +95,13 @@ def get_distinct_cities():
 def get_news_url(news_id):
     conn = get_db_connection()
     cursor = conn.cursor()
-    
+
     query = '''
     SELECT N.url 
-    FROM [News] AS N
-    JOIN [CityNews] AS CN ON CN.news_id = N.id
-    JOIN [City] AS C ON C.id = CN.city_id
-    WHERE CN.news_id = ?
+    FROM News AS N
+    JOIN CityNews AS CN ON CN.news_id = N.id
+    JOIN City AS C ON C.id = CN.city_id
+    WHERE CN.news_id = %s
     '''
 
     cursor.execute(query, (news_id,))

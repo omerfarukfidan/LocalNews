@@ -49,7 +49,8 @@ function NewsCard({ title, content, NewsID }) {
   return (
     <div className="news-card">
       <h2>{title}</h2>
-      <p>{content.substring(0, 150)}...</p>
+      {/* Check if content exists before calling substring */}
+      <p>{content ? content.substring(0, 150) : 'No content available'}...</p>
       <span className="news-provider" style={providerStyle}>{provider}</span>
       <button onClick={handleReadMore} className="read-more-button">Read More</button>
     </div>
