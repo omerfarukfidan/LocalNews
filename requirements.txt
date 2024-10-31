@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-pyodbc
-pandas
-python-dotenv
-flask
-flask-cors
-psycopg2
