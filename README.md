@@ -2,32 +2,6 @@
 
 This project is designed to provide local news experiences to cities in the United States. It uses a dataset of U.S. cities to map news articles to the correct geographical locations.
 
-## Project Structure
-
-```
-local-news-project/
-├── backend/
-│   ├── app/
-│   │   ├── main.py
-│   ├── scripts/
-│   │   ├── load_data.py
-│   │   ├── clean_dataset.ipynb
-├── dataset/
-│   ├── uscities.csv
-│   ├── cleaned_uscities.csv
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   ├── index.js
-│   │   ├── App.js
-│   ├── styles/
-│   ├── package.json
-│   ├── README.md
-```
-
 ## How to Set Up the Project
 
 ### 1. Clone the Repository
@@ -133,25 +107,6 @@ npm start
 ```
 
 The frontend server will start, and you can access it at `http://localhost:3000`. The application provides a dropdown to select a city and displays local news for the selected city.
-
-## Recent Updates
-
-### Added News Classification Pipeline
-- Implemented a data pipeline using OpenAI's GPT-3.5-turbo to classify news articles as either local or global.
-- The pipeline assigns relevant American cities to local news articles and marks global news appropriately.
-- The classified data is inserted into the database, linking each news article to its relevant city.
-
-### Created API Route for News by City
-- Added a new API route `/api/news` that allows users to retrieve news articles for a specific city by passing the city name as a query parameter.
-- This route searches the database for the specified city and returns all related news articles.
-
-### Frontend Dropdown for City Selection
-- Implemented a dropdown in the frontend application that allows users to select a city.
-- The selected city is used to fetch local news articles using the backend API.
-
-### Improved City Matching Logic
-- Updated the matching logic to ensure that cities are accurately identified and matched with the correct records in the database.
-- Removed the use of `LIKE` with partial matching, as it caused incorrect city assignments in some cases.
 
 ## Notes
 - Make sure your `.gitignore` file is set up to exclude sensitive files like `.env`, virtual environment folders (`venv/`), and large datasets (`dataset/`).
